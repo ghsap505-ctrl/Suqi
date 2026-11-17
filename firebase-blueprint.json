@@ -1,0 +1,221 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated user profile and platform role metadata",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Firebase Auth UID" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["merchant", "admin"] },
+        "preferredLang": { "type": "string", "enum": ["ar", "en"] },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp" }
+      },
+      "required": ["userId", "displayName", "email", "role", "preferredLang", "createdAt", "updatedAt"]
+    },
+    "AdminMarker": {
+      "title": "AdminMarker",
+      "description": "Explicit platform administrator UID allowlist",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "grantedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "grantedAt"]
+    },
+    "SubscriptionPlan": {
+      "title": "SubscriptionPlan",
+      "description": "Admin-configured pricing plans for Souqi merchants",
+      "type": "object",
+      "properties": {
+        "nameAr": { "type": "string" },
+        "nameEn": { "type": "string" },
+        "priceMonthlyUsd": { "type": "number" },
+        "priceMonthlyYer": { "type": "number" },
+        "maxProducts": { "type": "integer" },
+        "descriptionAr": { "type": "string" },
+        "descriptionEn": { "type": "string" },
+        "active": { "type": "boolean" },
+        "sortOrder": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "nameAr",
+        "nameEn",
+        "priceMonthlyUsd",
+        "priceMonthlyYer",
+        "maxProducts",
+        "descriptionAr",
+        "descriptionEn",
+        "active",
+        "sortOrder",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Store": {
+      "title": "Store",
+      "description": "Multi-tenant merchant storefront",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string" },
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "description": { "type": "string" },
+        "city": { "type": "string" },
+        "whatsappPhone": { "type": "string" },
+        "currency": { "type": "string", "enum": ["YER", "SAR", "USD"] },
+        "accentKey": { "type": "string", "enum": ["teal", "amber", "emerald", "terracotta"] },
+        "coverPreset": { "type": "string", "enum": ["hero", "honey", "fashion", "electronics"] },
+        "logoUri": { "type": "string" },
+        "active": { "type": "boolean" },
+        "verified": { "type": "boolean" },
+        "planId": { "type": "string" },
+        "subscriptionStatus": { "type": "string", "enum": ["trial", "active", "pending", "suspended"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "ownerUid",
+        "name",
+        "slug",
+        "description",
+        "city",
+        "whatsappPhone",
+        "currency",
+        "accentKey",
+        "coverPreset",
+        "active",
+        "verified",
+        "planId",
+        "subscriptionStatus",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Tenant-isolated product category under a store",
+      "type": "object",
+      "properties": {
+        "storeId": { "type": "string" },
+        "ownerUid": { "type": "string" },
+        "nameAr": { "type": "string" },
+        "nameEn": { "type": "string" },
+        "sortOrder": { "type": "integer" },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["storeId", "ownerUid", "nameAr", "nameEn", "sortOrder", "active", "createdAt", "updatedAt"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Tenant-isolated product inside a merchant store",
+      "type": "object",
+      "properties": {
+        "storeId": { "type": "string" },
+        "ownerUid": { "type": "string" },
+        "categoryId": { "type": "string" },
+        "nameAr": { "type": "string" },
+        "nameEn": { "type": "string" },
+        "descriptionAr": { "type": "string" },
+        "descriptionEn": { "type": "string" },
+        "price": { "type": "number" },
+        "stockCount": { "type": "integer" },
+        "available": { "type": "boolean" },
+        "imagePreset": { "type": "string" },
+        "imageUri": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "storeId",
+        "ownerUid",
+        "categoryId",
+        "nameAr",
+        "nameEn",
+        "descriptionAr",
+        "descriptionEn",
+        "price",
+        "stockCount",
+        "available",
+        "imagePreset",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "OrderInquiry": {
+      "title": "OrderInquiry",
+      "description": "Customer WhatsApp order inquiry containing delivery PII restricted to customer, store owner, and admin",
+      "type": "object",
+      "properties": {
+        "storeId": { "type": "string" },
+        "storeName": { "type": "string" },
+        "storeOwnerUid": { "type": "string" },
+        "customerUid": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "deliveryAddress": { "type": "string" },
+        "notes": { "type": "string" },
+        "itemsSummary": { "type": "string" },
+        "itemCount": { "type": "integer" },
+        "totalAmount": { "type": "number" },
+        "currency": { "type": "string", "enum": ["YER", "SAR", "USD"] },
+        "status": { "type": "string", "enum": ["pending_whatsapp", "contacted", "confirmed", "cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "storeId",
+        "storeName",
+        "storeOwnerUid",
+        "customerUid",
+        "customerName",
+        "customerPhone",
+        "deliveryAddress",
+        "notes",
+        "itemsSummary",
+        "itemCount",
+        "totalAmount",
+        "currency",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "User profiles isolated to owner and admins"
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/AdminMarker" },
+      "description": "Platform administrator registry"
+    },
+    "/plans/{planId}": {
+      "schema": { "$ref": "#/entities/SubscriptionPlan" },
+      "description": "Subscription plans configured by platform administrators"
+    },
+    "/stores/{storeId}": {
+      "schema": { "$ref": "#/entities/Store" },
+      "description": "Tenant merchant storefronts"
+    },
+    "/stores/{storeId}/categories/{categoryId}": {
+      "schema": { "$ref": "#/entities/Category" },
+      "description": "Storefront categories isolated per tenant"
+    },
+    "/stores/{storeId}/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Storefront products isolated per tenant"
+    },
+    "/order_inquiries/{inquiryId}": {
+      "schema": { "$ref": "#/entities/OrderInquiry" },
+      "description": "WhatsApp order inquiries scoped to customer, store owner, and admin"
+    }
+  }
+}

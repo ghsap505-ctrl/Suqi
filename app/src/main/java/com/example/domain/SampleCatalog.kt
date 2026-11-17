@@ -1,0 +1,335 @@
+package com.example.domain
+
+import com.example.model.Category
+import com.example.model.OrderInquiry
+import com.example.model.Product
+import com.example.model.Store
+import com.example.model.SubscriptionPlan
+
+data class PlatformFaq(
+    val questionAr: String,
+    val questionEn: String,
+    val answerAr: String,
+    val answerEn: String,
+)
+
+data class PlatformBenefit(
+    val titleAr: String,
+    val titleEn: String,
+    val descAr: String,
+    val descEn: String,
+)
+
+object SampleCatalog {
+
+    val defaultPlans: List<SubscriptionPlan> = listOf(
+        SubscriptionPlan(
+            id = "starter",
+            nameAr = "الباقة المجانية",
+            nameEn = "Starter Free",
+            priceMonthlyUsd = 0.0,
+            priceMonthlyYer = 0.0,
+            maxProducts = 25L,
+            descriptionAr = "مثالية للبداية: متجر برابط مستقل، حتى 25 منتجاً، وطلبات واتساب غير محدودة بدون عمولة.",
+            descriptionEn = "Ideal to launch: independent store slug, up to 25 products, unlimited WhatsApp orders with 0% commission.",
+            active = true,
+            sortOrder = 1L,
+        ),
+        SubscriptionPlan(
+            id = "growth",
+            nameAr = "باقة النمو",
+            nameEn = "Growth Plan",
+            priceMonthlyUsd = 9.0,
+            priceMonthlyYer = 4800.0,
+            maxProducts = 200L,
+            descriptionAr = "للمتاجر النشطة: حتى 200 منتج، شارة توثيق المتجر، تخصيص الهوية البصرية، وتحليلات الطلبات.",
+            descriptionEn = "For growing shops: up to 200 products, verified store badge, custom storefront theme, and order analytics.",
+            active = true,
+            sortOrder = 2L,
+        ),
+        SubscriptionPlan(
+            id = "business",
+            nameAr = "باقة الأعمال",
+            nameEn = "Business Pro",
+            priceMonthlyUsd = 24.0,
+            priceMonthlyYer = 12800.0,
+            maxProducts = 2000L,
+            descriptionAr = "للمشاريع الكبرى: منتجات غير محدودة تقريباً، أولوية الظهور في السوق، ودعم تفعيل متعدد الفروع.",
+            descriptionEn = "For established retailers: up to 2,000 products, priority marketplace placement, and multi-branch onboarding.",
+            active = true,
+            sortOrder = 3L,
+        ),
+    )
+
+    val benefits: List<PlatformBenefit> = listOf(
+        PlatformBenefit(
+            titleAr = "طلبات مباشرة عبر واتساب",
+            titleEn = "Direct WhatsApp Checkout",
+            descAr = "يصل الطلب منسقاً بالمنتجات والكميات والعنوان إلى رقم الواتساب الخاص بك فوراً.",
+            descEn = "Formatted order messages with items, quantities, and delivery address land straight in your WhatsApp.",
+        ),
+        PlatformBenefit(
+            titleAr = "بدون بوابات دفع معقدة",
+            titleEn = "Zero Payment Gateway Friction",
+            descAr = "اتفق مع عميلك على الدفع عند الاستلام أو الحوالة المحلية بالطريقة التي تناسب سوقك.",
+            descEn = "Collect via cash on delivery or local transfers without complex online card integrations.",
+        ),
+        PlatformBenefit(
+            titleAr = "خفيف وسريع للإنترنت البطيء",
+            titleEn = "Lightweight for Slow Networks",
+            descAr = "تصميم متجاوب سريع التصفح يستهلك أقل قدر من البيانات على الجوال في اليمن والعالم العربي.",
+            descEn = "Mobile-first architecture optimized for fast loading and low data consumption.",
+        ),
+        PlatformBenefit(
+            titleAr = "عزل كامل لكل متجر",
+            titleEn = "Strict Multi-Tenant Isolation",
+            descAr = "لكل تاجر لوحة تحكم مستقلة ورابط خاص وقواعد أمان تحمي منتجاته وبيانات عملائه.",
+            descEn = "Each merchant gets an isolated store slug, catalog, dashboard, and protected inquiry records.",
+        ),
+    )
+
+    val faqs: List<PlatformFaq> = listOf(
+        PlatformFaq(
+            questionAr = "هل يأخذ سوقي عمولة على الطلبات؟",
+            questionEn = "Does Souqi charge per-order commission?",
+            answerAr = "لا، سوقي لا يأخذ أي عمولة على المبيعات. جميع الطلبات تتم مباشرة بين التاجر والعميل عبر واتساب.",
+            answerEn = "No. Souqi takes 0% commission on sales. Every order goes directly between merchant and customer on WhatsApp.",
+        ),
+        PlatformFaq(
+            questionAr = "متى يصبح طلب العميل مؤكداً؟",
+            questionEn = "When is a customer order considered confirmed?",
+            answerAr = "إرسال رسالة واتساب يُنشئ استفسار طلب مبدئي فقط، ولا يُعد الطلب مؤكداً إلا بعد رد التاجر وتأكيده للعميل.",
+            answerEn = "Sending via WhatsApp creates an initial order inquiry only. An order is never confirmed until the merchant confirms it.",
+        ),
+        PlatformFaq(
+            questionAr = "كيف يتم تفعيل الباقات المدفوعة في المرحلة الحالية؟",
+            questionEn = "How are paid plans activated in the MVP?",
+            answerAr = "في هذه المرحلة لا توجد بوابة دفع إلكتروني، ويتم تفعيل وترقية اشتراك المتجر يدوياً من قبل إدارة المنصة بعد التنسيق مع التاجر.",
+            answerEn = "There is no online payment gateway in the MVP. Subscriptions are manually activated and tracked by the platform administrator.",
+        ),
+    )
+
+    val demoStores: List<Store> = listOf(
+        Store(
+            id = "demo_sanaa_honey",
+            ownerUid = "demo_owner_honey",
+            name = "مناحل وخيرات صنعاء",
+            slug = "sanaa-honey",
+            description = "عسل سدر دوعني أصلي، بن يمني فاخر، وبهارات محمصة طازجة مع توصيل لجميع المحافظات.",
+            city = "صنعاء",
+            whatsappPhone = "+967770123456",
+            currency = "YER",
+            accentKey = "amber",
+            coverPreset = "honey",
+            active = true,
+            verified = true,
+            planId = "growth",
+            subscriptionStatus = "active",
+            demoMode = true,
+        ),
+        Store(
+            id = "demo_dar_anaqa",
+            ownerUid = "demo_owner_fashion",
+            name = "دار الأناقة للملابس",
+            slug = "dar-alanaqa",
+            description = "عبايات كتان فاخرة، شيلات مطرزة يدوياً، وإكسسوارات يومية بتصاميم عربية عصرية.",
+            city = "عدن",
+            whatsappPhone = "+967733654321",
+            currency = "YER",
+            accentKey = "terracotta",
+            coverPreset = "fashion",
+            active = true,
+            verified = true,
+            planId = "business",
+            subscriptionStatus = "active",
+            demoMode = true,
+        ),
+        Store(
+            id = "demo_techzone_aden",
+            ownerUid = "demo_owner_tech",
+            name = "تك زون للإلكترونيات",
+            slug = "techzone-aden",
+            description = "إكسسوارات الهواتف الذكية، ساعات ذكية، وشواحن سريعة بضمان حقيقي.",
+            city = "تعز",
+            whatsappPhone = "+967711987654",
+            currency = "USD",
+            accentKey = "teal",
+            coverPreset = "electronics",
+            active = true,
+            verified = true,
+            planId = "growth",
+            subscriptionStatus = "active",
+            demoMode = true,
+        ),
+    )
+
+    val demoCategoriesByStore: Map<String, List<Category>> = mapOf(
+        "demo_sanaa_honey" to listOf(
+            Category(id = "cat_honey_1", storeId = "demo_sanaa_honey", ownerUid = "demo_owner_honey", nameAr = "عسل السدر", nameEn = "Sidr Honey", sortOrder = 1L),
+            Category(id = "cat_honey_2", storeId = "demo_sanaa_honey", ownerUid = "demo_owner_honey", nameAr = "البن اليمني", nameEn = "Yemeni Coffee", sortOrder = 2L),
+            Category(id = "cat_honey_3", storeId = "demo_sanaa_honey", ownerUid = "demo_owner_honey", nameAr = "البهارات", nameEn = "Spices", sortOrder = 3L),
+        ),
+        "demo_dar_anaqa" to listOf(
+            Category(id = "cat_fash_1", storeId = "demo_dar_anaqa", ownerUid = "demo_owner_fashion", nameAr = "عبايات كتان", nameEn = "Linen Abayas", sortOrder = 1L),
+            Category(id = "cat_fash_2", storeId = "demo_dar_anaqa", ownerUid = "demo_owner_fashion", nameAr = "شيلات وحقائب", nameEn = "Shawls & Bags", sortOrder = 2L),
+        ),
+        "demo_techzone_aden" to listOf(
+            Category(id = "cat_tech_1", storeId = "demo_techzone_aden", ownerUid = "demo_owner_tech", nameAr = "سماعات وساعات", nameEn = "Audio & Watches", sortOrder = 1L),
+            Category(id = "cat_tech_2", storeId = "demo_techzone_aden", ownerUid = "demo_owner_tech", nameAr = "شواحن وكابلات", nameEn = "Chargers & Cables", sortOrder = 2L),
+        ),
+    )
+
+    val demoProductsByStore: Map<String, List<Product>> = mapOf(
+        "demo_sanaa_honey" to listOf(
+            Product(
+                id = "prod_h_1",
+                storeId = "demo_sanaa_honey",
+                ownerUid = "demo_owner_honey",
+                categoryId = "cat_honey_1",
+                nameAr = "عسل سدر دوعني درجة أولى (1 كجم)",
+                nameEn = "Grade-A Doani Sidr Honey (1 kg)",
+                descriptionAr = "قطفة موسمية نقية من وادي دوعن، مفحوص مخبرياً ومعبأ في عبوة زجاجية محكمة.",
+                descriptionEn = "Pure seasonal harvest from Wadi Doan, lab-tested and sealed in glass.",
+                price = 32000.0,
+                stockCount = 18L,
+                available = true,
+                imagePreset = "honey",
+            ),
+            Product(
+                id = "prod_h_2",
+                storeId = "demo_sanaa_honey",
+                ownerUid = "demo_owner_honey",
+                categoryId = "cat_honey_2",
+                nameAr = "بن حرازي محمص وسط (500 جم)",
+                nameEn = "Harazi Medium Roast Coffee (500g)",
+                descriptionAr = "حبوب قهوة حرازية مختصة من المرتفعات اليمنية بإيحاءات الشوكولاتة والهيل.",
+                descriptionEn = "Specialty Yemeni highland coffee beans with notes of cocoa and cardamom.",
+                price = 9500.0,
+                stockCount = 30L,
+                available = true,
+                imagePreset = "coffee",
+            ),
+            Product(
+                id = "prod_h_3",
+                storeId = "demo_sanaa_honey",
+                ownerUid = "demo_owner_honey",
+                categoryId = "cat_honey_3",
+                nameAr = "خلطة حوائج القهوة والشاي العدني",
+                nameEn = "Adeni Tea & Coffee Spice Blend",
+                descriptionAr = "مزيج متوازن من الهيل والقرنفل والقرفة مطحون يومياً.",
+                descriptionEn = "Freshly ground cardamom, clove, and cinnamon blend.",
+                price = 3800.0,
+                stockCount = 45L,
+                available = true,
+                imagePreset = "honey",
+            ),
+            Product(
+                id = "prod_h_4",
+                storeId = "demo_sanaa_honey",
+                ownerUid = "demo_owner_honey",
+                categoryId = "cat_honey_1",
+                nameAr = "عسل السمر الجبلي (500 جم)",
+                nameEn = "Mountain Sumur Honey (500g)",
+                descriptionAr = "نكهة داكنة غنية بالمعادن، مثالي للاستخدام اليومي.",
+                descriptionEn = "Rich dark mountain honey for daily wellness.",
+                price = 14500.0,
+                stockCount = 0L,
+                available = false,
+                imagePreset = "honey",
+            ),
+        ),
+        "demo_dar_anaqa" to listOf(
+            Product(
+                id = "prod_f_1",
+                storeId = "demo_dar_anaqa",
+                ownerUid = "demo_owner_fashion",
+                categoryId = "cat_fash_1",
+                nameAr = "عباية كتان صيفي بلون رملي",
+                nameEn = "Sand-Tone Linen Summer Abaya",
+                descriptionAr = "قصة واسعة ومريحة من الكتان البارد مع تطريز هادئ على الأكمام.",
+                descriptionEn = "Breathable summer linen abaya with subtle sleeve embroidery.",
+                price = 24000.0,
+                stockCount = 12L,
+                available = true,
+                imagePreset = "abaya",
+            ),
+            Product(
+                id = "prod_f_2",
+                storeId = "demo_dar_anaqa",
+                ownerUid = "demo_owner_fashion",
+                categoryId = "cat_fash_2",
+                nameAr = "حقيبة جلد طبيعي مدمجة",
+                nameEn = "Compact Leather Crossbody Bag",
+                descriptionAr = "حقيبة عملية بجيوب منظمة وحزام قابل للتعديل باللون الجملي.",
+                descriptionEn = "Practical camel leather bag with adjustable strap.",
+                price = 16500.0,
+                stockCount = 9L,
+                available = true,
+                imagePreset = "abaya",
+            ),
+        ),
+        "demo_techzone_aden" to listOf(
+            Product(
+                id = "prod_t_1",
+                storeId = "demo_techzone_aden",
+                ownerUid = "demo_owner_tech",
+                categoryId = "cat_tech_1",
+                nameAr = "سماعة بلوتوث بعزل ضوضاء ANC",
+                nameEn = "Wireless ANC Earbuds Pro",
+                descriptionAr = "بطارية تدوم 30 ساعة مع علبة شحن Type-C وصوت نقي للمكالمات.",
+                descriptionEn = "30-hour battery life, USB-C fast charging, clear call microphones.",
+                price = 28.0,
+                stockCount = 22L,
+                available = true,
+                imagePreset = "earbuds",
+            ),
+            Product(
+                id = "prod_t_2",
+                storeId = "demo_techzone_aden",
+                ownerUid = "demo_owner_tech",
+                categoryId = "cat_tech_1",
+                nameAr = "ساعة ذكية AMOLED مقاومة للماء",
+                nameEn = "AMOLED Water-Resistant Smartwatch",
+                descriptionAr = "شاشة ساطعة تدعم الإشعارات العربية وبطارية 10 أيام.",
+                descriptionEn = "Bright AMOLED display with full Arabic notifications and 10-day battery.",
+                price = 45.0,
+                stockCount = 14L,
+                available = true,
+                imagePreset = "watch",
+            ),
+            Product(
+                id = "prod_t_3",
+                storeId = "demo_techzone_aden",
+                ownerUid = "demo_owner_tech",
+                categoryId = "cat_tech_2",
+                nameAr = "شاحن جداري سريع 65W GaN",
+                nameEn = "65W GaN Fast Wall Charger",
+                descriptionAr = "منفذان USB-C لشحن الهاتف واللابتوب بأمان وحماية من تذبذب الكهرباء.",
+                descriptionEn = "Dual USB-C charger with surge protection for phones and laptops.",
+                price = 19.0,
+                stockCount = 35L,
+                available = true,
+                imagePreset = "earbuds",
+            ),
+        ),
+    )
+
+    val demoInquiries: List<OrderInquiry> = listOf(
+        OrderInquiry(
+            id = "demo_inq_1",
+            storeId = "demo_sanaa_honey",
+            storeName = "مناحل وخيرات صنعاء",
+            storeOwnerUid = "demo_owner_honey",
+            customerUid = "demo_cust_1",
+            customerName = "سالم باوزير",
+            customerPhone = "+967774455667",
+            deliveryAddress = "صنعاء - شارع حدة",
+            notes = "التوصيل بعد الساعة 4 عصراً",
+            itemsSummary = "عسل سدر دوعني درجة أولى (1 كجم) × 1 | بن حرازي محمص وسط (500 جم) × 2",
+            itemCount = 3L,
+            totalAmount = 51000.0,
+            currency = "YER",
+            status = "pending_whatsapp",
+        ),
+    )
+}
