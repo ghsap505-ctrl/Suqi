@@ -1,0 +1,52 @@
+{
+  "name": "souqi-desktop",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Souqi Desktop - Multi-tenant Arabic WhatsApp e-commerce platform for Windows, macOS, and Linux",
+  "main": "main.js",
+  "scripts": {
+    "prepare-web": "node scripts/copy-web.mjs",
+    "start": "electron .",
+    "dev": "SOUQI_DESKTOP_URL=http://localhost:5173 electron .",
+    "dist": "npm run prepare-web && electron-builder",
+    "dist:win": "npm run prepare-web && electron-builder --win",
+    "dist:mac": "npm run prepare-web && electron-builder --mac",
+    "dist:linux": "npm run prepare-web && electron-builder --linux"
+  },
+  "dependencies": {
+    "electron-updater": "^6.3.9"
+  },
+  "devDependencies": {
+    "electron": "^33.3.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.souqi.desktop",
+    "productName": "Souqi Desktop",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "web-dist/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.business"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Office"
+    }
+  }
+}
